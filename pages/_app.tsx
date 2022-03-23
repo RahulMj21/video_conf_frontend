@@ -1,13 +1,11 @@
 import type { AppProps } from "next/app";
-import { GlobalStyles, lightTheme } from "../styles/theme.config";
-import { ThemeProvider } from "styled-components";
+import Layout from "../components/Layout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <GlobalStyles />
+    <Layout>
       <Component {...pageProps} />
-    </ThemeProvider>
+    </Layout>
   );
 }
 
