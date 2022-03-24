@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { NextRouter, useRouter } from "next/router";
 import { FaArrowRight } from "react-icons/fa";
 import { Container } from "../styles/common.style";
 import {
@@ -13,6 +14,8 @@ import {
 } from "../styles/mainPage.style";
 
 const Home: NextPage = () => {
+  const router: NextRouter = useRouter();
+
   return (
     <HomePage>
       <Container className="container">
@@ -29,7 +32,7 @@ const Home: NextPage = () => {
             Meet live with your favourite ones with a few glance. <br />
             Click below to connect.
           </Para>
-          <Button>
+          <Button onClick={() => router.push("/auth")}>
             Get Started <FaArrowRight />
           </Button>
         </Left>

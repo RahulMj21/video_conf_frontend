@@ -1,11 +1,71 @@
 import styled from "styled-components";
 
 export const AuthSection = styled.section`
+  position: relative;
   .container {
-    border: 1px solid ${(props) => props.theme.text};
-    width: 30rem !important;
+    margin: 4rem auto;
+    width: 28.5rem;
+    min-height: calc(100vh - 13.8rem);
+    padding: 2rem 0;
+    border: 1px solid ${({ theme }) => theme.border};
+    border-radius: 7px;
+    overflow-x: hidden;
   }
 `;
-export const Main = styled.div``;
-export const Register = styled.div``;
-export const Login = styled.div``;
+export const AuthHeading = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  margin-bottom: 4rem;
+  h2 {
+    cursor: pointer;
+    padding-bottom: 0.8rem;
+    font-size: 1.7rem;
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 0.8px;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 50%;
+    bottom: 0;
+    left: ${({ toggleForm }: { toggleForm: Boolean }) =>
+      toggleForm ? "50%" : "0%"};
+    background: ${(props) => props.theme.brand};
+    border-radius: 4px;
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+`;
+export const Forms = styled.div`
+  width: 200%;
+  display: flex;
+  & > form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+`;
+export const Register = styled.form`
+  transform: ${({ toggleForm }: { toggleForm: Boolean }) =>
+    toggleForm ? "translateX(-100%)" : "translateX(0)"};
+  transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+`;
+export const Login = styled.form`
+  transform: ${({ toggleForm }: { toggleForm: Boolean }) =>
+    toggleForm ? "translateX(-100%)" : "translateX(0)"};
+  transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+`;
+
+export const OR = styled.p`
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1.3rem 0;
+  color: gray;
+  text-transform: uppercase;
+`;

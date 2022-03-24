@@ -7,6 +7,7 @@ export const HeaderComponent = styled.header`
   color: ${(props) => props.theme.text};
   border-bottom: 1px solid ${(props) => props.theme.border};
   transition: all 0.4s ease;
+  z-index: 99;
   .container {
     display: flex;
     align-items: center;
@@ -28,6 +29,7 @@ export const Logo = styled.h3`
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
+  cursor: pointer;
 `;
 export const SearchBar = styled.div`
   display: flex;
