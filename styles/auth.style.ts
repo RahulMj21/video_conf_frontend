@@ -8,7 +8,7 @@ export const AuthSection = styled.section`
     min-height: calc(100vh - 13.8rem);
     padding: 2rem 0;
     border: 1px solid ${({ theme }) => theme.border};
-    border-radius: 7px;
+    border-radius: 1rem;
     overflow-x: hidden;
   }
 `;

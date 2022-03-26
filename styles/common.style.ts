@@ -64,7 +64,7 @@ export const InputGroup = styled.div`
     padding-left: 2.5rem;
     font-size: 1.2rem;
     background: transparent;
-    color: gray;
+    color: ${(props) => props.theme.text};
     border: none;
     border-bottom: 1px solid gray;
     outline: none;
@@ -75,7 +75,7 @@ export const InputGroup = styled.div`
     }
   }
 `;
-export const ButtonGoogle = styled.button`
+export const ButtonGoogle = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -88,4 +88,7 @@ export const ButtonGoogle = styled.button`
   color: ${(props) => props.theme.text};
   border: 1px solid ${(props) => props.theme.border};
   cursor: pointer;
+  svg {
+    font-size: 1.6rem;
+  }
 `;

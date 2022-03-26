@@ -1,17 +1,23 @@
-import { createGlobalStyle, ThemedStyledInterface } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 export const lightTheme = {
   brand: "#00BFA6",
   body: "#FFF",
+  body2: "#f1f1f1",
   text: "#363537",
-  border: "#ddd",
+  border: "#ccc",
   background: "#363537",
+  blue: "#4D96FF",
+  red: "#e62236",
 };
 export const darkTheme = {
   brand: "#00BFA6",
   body: "#363537",
+  body2: "#282729",
   text: "#FAFAFA",
   border: "#4c4c4c",
   background: "#999",
+  blue: "#4D96FF",
+  red: "#e62236",
 };
 type themeType = typeof lightTheme;
 
@@ -21,6 +27,36 @@ export const GlobalStyles = createGlobalStyle<{ theme: themeType }>`
   padding: 0;
    box-sizing: border-box;
 }
+/* customizing the scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: ${(props) => props.theme.body2};
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: ${(props) => props.theme.brand};
+  border-radius: 2rem;
+}
+/* customizing the scrollbar */
+
+/* removing autocomplete's white background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+input:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-text-fill-color: ${(props) => props.theme.text} !important;
+}
+
 body {
    margin: 0;
    padding: 0;
@@ -36,7 +72,9 @@ section{
   min-height:100vh !important;
 }
 input, textarea, button {
-    font-family: inherit
+    font-family: inherit;
+    border:none;
+    outline:none;
 }
 a{
     text-decoration: none;

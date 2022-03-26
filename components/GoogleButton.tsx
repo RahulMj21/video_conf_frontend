@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { FaGoogle } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { ButtonGoogle } from "../styles/common.style";
 import showConsentScreen from "../utils/showConsentScreen";
 
@@ -9,7 +9,7 @@ const GoogleButton = () => {
     <Link href={showConsentScreen()}>
       <a>
         <ButtonGoogle>
-          <FaGoogle /> Continue With Google
+          <FcGoogle /> Continue With Google
         </ButtonGoogle>
       </a>
     </Link>

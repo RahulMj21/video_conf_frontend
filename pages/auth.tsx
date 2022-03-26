@@ -56,10 +56,10 @@ const Auth = () => {
             <OR>or</OR>
             <GoogleButton />
           </Register>
-          <Login toggleForm={toggleForm}>
+          <Login toggleForm={toggleForm} autoComplete="no">
             <InputGroup>
               <FaEnvelope />
-              <input name="email" autoComplete="off" type="email" required />
+              <input name="email" autoComplete="email" type="email" required />
               <label htmlFor="email">Enter email</label>
             </InputGroup>
             <InputGroup>

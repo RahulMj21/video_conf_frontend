@@ -2,12 +2,12 @@ import React from "react";
 import { Container } from "../styles/common.style";
 import { RoomsPage } from "../styles/rooms.style";
 
-const Rooms = () => {
+const rooms = () => {
   return (
     <RoomsPage>
-      <Container>Rooms</Container>
+      <Container>rooms</Container>
     </RoomsPage>
   );
 };
 
-export default Rooms;
+export default rooms;
