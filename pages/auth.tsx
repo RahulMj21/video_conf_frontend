@@ -3,6 +3,7 @@ import { BtnBrand, Container, InputGroup } from "../styles/common.style";
 import {
   AuthHeading,
   AuthSection,
+  ForgotPassword,
   Forms,
   Login,
   OR,
@@ -10,6 +11,7 @@ import {
 } from "../styles/auth.style";
 import { FaEnvelope, FaLock, FaUnlock, FaUser } from "react-icons/fa";
 import GoogleButton from "../components/GoogleButton";
+import Link from "next/link";
 
 const Auth = () => {
   const [toggleForm, setToggleForm] = useState(false);
@@ -73,6 +75,11 @@ const Auth = () => {
               <label htmlFor="password">Enter Password</label>
             </InputGroup>
             <BtnBrand>Login</BtnBrand>
+            <Link href="/forgotpassword">
+              <a>
+                <ForgotPassword>Forgot Password ?</ForgotPassword>
+              </a>
+            </Link>
             <OR>or</OR>
             <GoogleButton />
           </Login>

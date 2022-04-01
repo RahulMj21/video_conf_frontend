@@ -92,3 +92,37 @@ export const ButtonGoogle = styled.div`
     font-size: 1.6rem;
   }
 `;
+export const SectionHeading = styled.h2`
+  position: relative;
+  font-size: 1.7rem;
+  color: ${(props) => props.theme.text};
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  gap: 0.7rem;
+  padding-bottom: 1rem;
+  margin-bottom: 2.5rem;
+  svg {
+    font-size: 1.45rem;
+    transition: all 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 30%;
+    bottom: 0;
+    left: 0;
+    border-radius: 4px;
+    background: ${(props) => props.theme.brand};
+    transition: all 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  &:hover {
+    svg {
+      transform: translateX(0.5rem);
+    }
+    &::before {
+      width: 110%;
+    }
+  }
+`;

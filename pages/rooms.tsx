@@ -7,7 +7,7 @@ import {
   FaUsers,
   FaVideo,
 } from "react-icons/fa";
-import { Container } from "../styles/common.style";
+import { Container, SectionHeading } from "../styles/common.style";
 import {
   AllRooms,
   Participants,
@@ -17,7 +17,6 @@ import {
   RoomCreatorName,
   RoomHead,
   RoomName,
-  RoomsHeading,
   RoomsPage,
 } from "../styles/rooms.style";
 import { GroupIcon } from "../styles/singleRoom.style";
@@ -26,9 +25,9 @@ const rooms = () => {
   return (
     <RoomsPage>
       <Container className="container">
-        <RoomsHeading>
+        <SectionHeading>
           All Rooms <FaArrowRight />
-        </RoomsHeading>
+        </SectionHeading>
         <AllRooms>
           <Link href={`/room/room1`}>
             <a>

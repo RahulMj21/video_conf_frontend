@@ -8,7 +8,7 @@ import {
   SearchBar,
   ThemeToggler,
 } from "../styles/header.style";
-import { FaPencilAlt, FaSearch, FaThLarge } from "react-icons/fa";
+import { FaUser, FaVideo, FaSearch, FaThLarge } from "react-icons/fa";
 import { NextRouter, useRouter } from "next/router";
 import RoomModal from "./RoomModal";
 
@@ -42,7 +42,10 @@ const Header = ({
               <FaThLarge /> Rooms
             </NavItem>
             <NavItem onClick={() => setShowCreateRoomModal(true)}>
-              <FaPencilAlt /> Create
+              <FaVideo /> Create
+            </NavItem>
+            <NavItem onClick={() => router.push("/me")}>
+              <FaUser /> Profile
             </NavItem>
             <NavItem>
               <ThemeToggler

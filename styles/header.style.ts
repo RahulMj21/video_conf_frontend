@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PopUp } from "./singleRoom.style";
 
 export const HeaderComponent = styled.header`
   position: fixed;
@@ -58,7 +59,7 @@ export const SearchBar = styled.div`
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 `;
 export const NavItem = styled.div`
   display: flex;
@@ -67,6 +68,12 @@ export const NavItem = styled.div`
   gap: 0.3rem;
   cursor: pointer;
   color: ${(props) => props.theme.text};
+  svg {
+    color: ${(props) => props.theme.brand};
+  }
+  &:hover svg {
+    animation: ${PopUp} 0.5s ease;
+  }
 `;
 export const ThemeToggler = styled.div`
   position: relative;
