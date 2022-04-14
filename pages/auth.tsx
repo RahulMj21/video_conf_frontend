@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import { BtnBrand, Container, InputGroup } from "../styles/common.style";
-import {
-  AuthHeading,
-  AuthSection,
-  ForgotPassword,
-  Forms,
-  Login,
-  OR,
-  Register,
-} from "../styles/auth.style";
-import { FaEnvelope, FaLock, FaUnlock, FaUser } from "react-icons/fa";
-import GoogleButton from "../components/GoogleButton";
-import Link from "next/link";
+import { Container } from "../styles/common.style";
+import { AuthHeading, AuthSection, Forms } from "../styles/auth.style";
+import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/LoginForm";
 
 const Auth = () => {
   const [toggleForm, setToggleForm] = useState(false);
@@ -23,66 +14,8 @@ const Auth = () => {
           <h2 onClick={() => setToggleForm(true)}>Login</h2>
         </AuthHeading>
         <Forms>
-          <Register autoComplete="no" toggleForm={toggleForm}>
-            <InputGroup>
-              <FaUser />
-              <input name="name" autoComplete="off" type="text" required />
-              <label htmlFor="name">Enter Name</label>
-            </InputGroup>
-            <InputGroup>
-              <FaEnvelope />
-              <input name="email" autoComplete="off" type="email" required />
-              <label htmlFor="email">Enter email</label>
-            </InputGroup>
-            <InputGroup>
-              <FaLock />
-              <input
-                name="password"
-                autoComplete="new-password"
-                type="password"
-                required
-              />
-              <label htmlFor="password">Enter Password</label>
-            </InputGroup>
-            <InputGroup>
-              <FaUnlock />
-              <input
-                name="confirmPassword"
-                autoComplete="new-password"
-                type="password"
-                required
-              />
-              <label htmlFor="confirmPassword">Confirm Password</label>
-            </InputGroup>
-            <BtnBrand type="submit">Register</BtnBrand>
-            <OR>or</OR>
-            <GoogleButton />
-          </Register>
-          <Login toggleForm={toggleForm} autoComplete="no">
-            <InputGroup>
-              <FaEnvelope />
-              <input name="email" autoComplete="email" type="email" required />
-              <label htmlFor="email">Enter email</label>
-            </InputGroup>
-            <InputGroup>
-              <FaLock />
-              <input
-                name="password"
-                autoComplete="new-password"
-                type="password"
-                required
-              />
-              <label htmlFor="password">Enter Password</label>
-            </InputGroup>
-            <BtnBrand>Login</BtnBrand>
-            <Link href="/forgotpassword">
-              <a>
-                <ForgotPassword>Forgot Password ?</ForgotPassword>
-              </a>
-            </Link>
-            <OR>or</OR>
-            <GoogleButton />
-          </Login>
+          <RegisterForm toggleForm={toggleForm} />
+          <LoginForm toggleForm={toggleForm} />
         </Forms>
       </Container>
     </AuthSection>

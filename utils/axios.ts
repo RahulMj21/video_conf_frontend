@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LoginInput, RegisterInput } from "../schemas";
 
 const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
@@ -8,5 +9,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export const register = (input: any) => api.post("/register", input);
-export const login = (input: any) => api.post("/register", input);
+export const registerUser = (input: RegisterInput) =>
+  api.post("/register", input);
+export const loginUser = (input: LoginInput) => api.post("/login", input);

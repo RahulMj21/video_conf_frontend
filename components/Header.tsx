@@ -24,6 +24,13 @@ const Header = ({
   const router: NextRouter = useRouter();
   const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
 
+  const handleToggleTheme = (state: Boolean) => {
+    state
+      ? localStorage.setItem("theme", JSON.stringify("dark"))
+      : localStorage.setItem("theme", JSON.stringify("light"));
+    setIsThemeToggled(state);
+  };
+
   return (
     <>
       {showCreateRoomModal && (
@@ -50,7 +57,7 @@ const Header = ({
             <NavItem>
               <ThemeToggler
                 isThemeToggled={isThemeToggled}
-                onClick={() => setIsThemeToggled(!isThemeToggled)}
+                onClick={() => handleToggleTheme(!isThemeToggled)}
               />
             </NavItem>
           </Nav>
