@@ -13,6 +13,18 @@ export const Main = styled.main`
   justify-content: space-evenly;
   gap: 1rem;
 `;
+export const ProfileTop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    margin-bottom: 2.5rem;
+    padding: 0.65rem 1rem;
+    svg {
+      font-size: 1rem;
+    }
+  }
+`;
 export const Left = styled.div`
   position: relative;
   width: 16rem;

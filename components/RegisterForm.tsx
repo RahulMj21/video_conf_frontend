@@ -20,7 +20,7 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
   } = useForm<RegisterInput>({
     resolver: zodResolver(RegisterSchema),
   });
-  const submitRegisterForm = async (values: RegisterInput) => {
+  const handleRegister = async (values: RegisterInput) => {
     try {
       const { data }: { data: { success: Boolean; message: string } } =
         await registerUser(values);
@@ -39,15 +39,21 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
 
   return (
     <Register
-      onSubmit={handleSubmit(submitRegisterForm)}
+      onSubmit={handleSubmit(handleRegister)}
       autoComplete="no"
       toggleForm={toggleForm}
     >
       <InputGroup>
         <FaUser />
-        <input autoComplete="off" type="text" required {...register("name")} />
+        <input
+          autoComplete="off"
+          type="text"
+          id="name"
+          required
+          {...register("name")}
+        />
         <label htmlFor="name">Enter Name</label>
-        {errors.name && <p className="error">{errors.name.message}</p>}
+        <p className="error">{errors?.name?.message}</p>
       </InputGroup>
       <InputGroup>
         <FaEnvelope />
@@ -55,10 +61,11 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
           autoComplete="off"
           type="email"
           required
+          id="email"
           {...register("email")}
         />
         <label htmlFor="email">Enter email</label>
-        {errors.email && <p className="error">{errors.email.message}</p>}
+        <p className="error">{errors?.email?.message}</p>
       </InputGroup>
       <InputGroup>
         <FaLock />
@@ -66,10 +73,11 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
           autoComplete="new-password"
           type="password"
           required
+          id="password"
           {...register("password")}
         />
         <label htmlFor="password">Enter Password</label>
-        {errors.password && <p className="error">{errors.password.message}</p>}
+        <p className="error">{errors?.password?.message}</p>
       </InputGroup>
       <InputGroup>
         <FaUnlock />
@@ -77,12 +85,11 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
           autoComplete="new-password"
           type="password"
           required
+          id="confirmPassword"
           {...register("confirmPassword")}
         />
         <label htmlFor="confirmPassword">Confirm Password</label>
-        {errors.confirmPassword && (
-          <p className="error">{errors.confirmPassword.message}</p>
-        )}
+        <p className="error">{errors?.confirmPassword?.message}</p>
       </InputGroup>
       <BtnBrand type="submit">Register</BtnBrand>
       <OR>or</OR>

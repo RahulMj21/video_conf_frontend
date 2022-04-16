@@ -1,9 +1,10 @@
 import React from "react";
 import { FaEnvelope } from "react-icons/fa";
+import GuestRoute from "../components/GuestRoute";
 import { AuthSection, FormHeading, SingleForm } from "../styles/auth.style";
 import { BtnBrand, Container, InputGroup } from "../styles/common.style";
 
-const ForgotPassword = () => {
+const ForgotPassword = GuestRoute(() => {
   return (
     <AuthSection>
       <Container className="container">
@@ -19,6 +20,6 @@ const ForgotPassword = () => {
       </Container>
     </AuthSection>
   );
-};
+});
 
 export default ForgotPassword;

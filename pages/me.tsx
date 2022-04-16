@@ -1,6 +1,17 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
-import { FaArrowRight, FaEnvelope, FaUser } from "react-icons/fa";
+import {
+  FaArrowRight,
+  FaEnvelope,
+  FaPlusSquare,
+  FaPowerOff,
+  FaUser,
+} from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import AuthProtectedRoute from "../components/AuthProtectedRoute";
+import { clearUser, selectUser } from "../slices/user.slice";
 import { Container, SectionHeading } from "../styles/common.style";
 import {
   Left,
@@ -13,15 +24,46 @@ import {
   Title,
   UserDetailGroup,
   UserDetails,
+  ProfileTop,
 } from "../styles/profile.style";
+import { InviteButton } from "../styles/singleRoom.style";
+import { logoutUser } from "../utils/axios";
 
-const Me = () => {
+const Me = AuthProtectedRoute(() => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const user = useSelector(selectUser);
+
+  const handleLogout = async () => {
+    try {
+      const { data }: { data: { success: Boolean; message: string } } =
+        await logoutUser();
+      if (data.success) {
+        dispatch(clearUser());
+        toast.success(data.message);
+        router.push("/auth");
+      }
+    } catch (error: any) {
+      return toast.error(
+        error?.response?.data?.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  };
+
   return (
     <Profile>
       <Container className="container">
-        <SectionHeading>
-          My Profile <FaArrowRight />
-        </SectionHeading>
+        <ProfileTop>
+          <SectionHeading>
+            My Profile <FaArrowRight />
+          </SectionHeading>
+          <InviteButton onClick={handleLogout}>
+            <FaPowerOff />
+            Log Out
+          </InviteButton>
+        </ProfileTop>
         <Main>
           <Left>
             <ProfileImg src="/stream.jpg" alt="user" />
@@ -33,14 +75,14 @@ const Me = () => {
                   <FaUser />
                   Name :
                 </Title>
-                <Detail>Rahul M</Detail>
+                <Detail>{user?.name}</Detail>
               </UserDetailGroup>
               <UserDetailGroup>
                 <Title>
                   <FaEnvelope />
                   Email :
                 </Title>
-                <Detail>rahulmondar@gmail.com</Detail>
+                <Detail>{user?.email}</Detail>
               </UserDetailGroup>
             </UserDetails>
             <ActionButtons>
@@ -56,6 +98,6 @@ const Me = () => {
       </Container>
     </Profile>
   );
-};
+});
 
 export default Me;

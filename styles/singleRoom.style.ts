@@ -103,6 +103,18 @@ export const InviteButton = styled.button`
   font-size: 1.1rem;
   border-radius: 0.7rem;
   cursor: pointer;
+  align-items: center;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:hover {
+    svg {
+      animation: ${PopUp} 0.5s ease;
+    }
+  }
+
   svg {
     font-size: 1.2rem;
   }

@@ -7,14 +7,43 @@ import {
   ModalHeading,
   Overlay,
 } from "../styles/RoomModal.style";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { RoomInput, RoomSchema } from "../schemas";
+import { createNewRoom } from "../utils/axios";
+import { NextRouter, useRouter } from "next/router";
 
 const RoomModal = ({
   setShowCreateRoomModal,
 }: {
   setShowCreateRoomModal: Function;
 }) => {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const router: NextRouter = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RoomInput>({
+    resolver: zodResolver(RoomSchema),
+  });
+
+  const handleCreateRoom: SubmitHandler<RoomInput> = async (
+    values: RoomInput
+  ) => {
+    const { data } = await createNewRoom(values);
+    if (data.success) {
+      toast.success(`room created`);
+      router.push(`/room/${data.roomId}`);
+    }
+    try {
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
   };
 
   return (
@@ -22,21 +51,18 @@ const RoomModal = ({
       <Overlay onClick={() => setShowCreateRoomModal(false)} />
       <Container className="container">
         <ModalHeading>Create Room</ModalHeading>
-        <ModalForm autoComplete="off" onSubmit={(e) => handleSubmit(e)}>
+        <ModalForm autoComplete="off" onSubmit={handleSubmit(handleCreateRoom)}>
           <InputGroup>
             <FaHome />
-            <input name="roomname" autoComplete="off" type="text" required />
-            <label htmlFor="roomname">Enter Room Name</label>
-          </InputGroup>
-          <InputGroup className="last-input">
-            <FaLock />
             <input
-              name="roompassword"
-              autoComplete="new-password"
-              type="password"
+              id="roomName"
+              autoComplete="off"
+              type="text"
               required
+              {...register("roomName")}
             />
-            <label htmlFor="roompassword">Enter Room Password</label>
+            <label htmlFor="roomName">Enter Room Name</label>
+            <p className="error">{errors?.roomName?.message}</p>
           </InputGroup>
           <BtnBrand type="submit">
             Create <FaPencilAlt />

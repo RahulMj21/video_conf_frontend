@@ -3,8 +3,9 @@ import { Container } from "../styles/common.style";
 import { AuthHeading, AuthSection, Forms } from "../styles/auth.style";
 import RegisterForm from "../components/RegisterForm";
 import LoginForm from "../components/LoginForm";
+import GuestRoute from "../components/GuestRoute";
 
-const Auth = () => {
+const Auth = GuestRoute(() => {
   const [toggleForm, setToggleForm] = useState(false);
   return (
     <AuthSection>
@@ -20,6 +21,6 @@ const Auth = () => {
       </Container>
     </AuthSection>
   );
-};
+});
 
 export default Auth;

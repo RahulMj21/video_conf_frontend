@@ -1,8 +1,12 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { NextRouter, useRouter } from "next/router";
+import { useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { setUser, UserInterface } from "../slices/user.slice";
 import { Container } from "../styles/common.style";
 import {
   Button,
@@ -12,10 +16,25 @@ import {
   Para,
   Right,
 } from "../styles/mainPage.style";
+import { fetchCurrentUser } from "../utils/axios";
 
-const Home: NextPage = () => {
+export interface PageProps {
+  user: UserInterface | null;
+}
+
+const Home: NextPage<PageProps> = (props: PageProps) => {
   const router: NextRouter = useRouter();
+  const dispatch = useDispatch();
+  const { user } = props;
+  console.log("props", props);
 
+  useEffect(() => {
+    if (user) {
+      dispatch(setUser(user));
+      toast.success(`welcome ${user.name}`);
+      router.push("/rooms");
+    }
+  }, []);
   return (
     <HomePage>
       <Container className="container">
@@ -47,6 +66,20 @@ const Home: NextPage = () => {
       </Container>
     </HomePage>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let user: null | UserInterface = null;
+  try {
+    const { data }: { data: { success: Boolean; user: UserInterface } } =
+      await fetchCurrentUser(context.req.cookies);
+    if (data.success) {
+      user = data.user;
+    }
+  } catch (error: any) {
+    user = null;
+  }
+  return { props: { user } };
 };
 
 export default Home;

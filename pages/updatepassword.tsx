@@ -1,49 +1,90 @@
 import React from "react";
-import { FaEnvelope, FaLock, FaLockOpen } from "react-icons/fa";
+import { FaLock, FaLockOpen } from "react-icons/fa";
+import AuthProtectedRoute from "../components/AuthProtectedRoute";
 import { AuthSection, FormHeading, SingleForm } from "../styles/auth.style";
 import { BtnBrand, Container, InputGroup } from "../styles/common.style";
+import { useForm } from "react-hook-form";
+import { UpdatePasswordInput, UpdatePasswordSchema } from "../schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
+import { updateUserPassword } from "../utils/axios";
+import { useRouter } from "next/router";
 
-const UpdatePassword = () => {
+const UpdatePassword = AuthProtectedRoute(() => {
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdatePasswordInput>({
+    resolver: zodResolver(UpdatePasswordSchema),
+  });
+
+  const onSubmit = async (values: UpdatePasswordInput) => {
+    try {
+      const { data }: { data: { success: Boolean; message: string } } =
+        await updateUserPassword(values);
+
+      if (data.success) {
+        toast.success(data.message);
+        return router.push("/me");
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message
+          ? error.response.data.message
+          : error.message
+      );
+    }
+  };
+
   return (
     <AuthSection>
       <Container className="container">
         <FormHeading>Update Password</FormHeading>
-        <SingleForm autoComplete="no">
+        <SingleForm autoComplete="no" onSubmit={handleSubmit(onSubmit)}>
           <InputGroup>
             <FaLock />
             <input
-              name="password"
+              id="password"
               autoComplete="new-password"
               type="password"
               required
+              {...register("password")}
             />
-            <label htmlFor="password">Enter Current Password</label>
+            <label htmlFor="password">Current Password</label>
+            <p className="error">{errors.password?.message}</p>
           </InputGroup>
           <InputGroup>
             <FaLock />
             <input
-              name="newPassword"
+              id="newPassword"
               autoComplete="new-password"
               type="password"
               required
+              {...register("newPassword")}
             />
-            <label htmlFor="newPassword">Enter New Password</label>
+            <label htmlFor="newPassword">New Password</label>
+            <p className="error">{errors.newPassword?.message}</p>
           </InputGroup>
           <InputGroup>
             <FaLockOpen />
             <input
-              name="confirmNewPassword"
+              id="confirmNewPassword"
               autoComplete="new-password"
               type="password"
               required
+              {...register("confirmNewPassword")}
             />
             <label htmlFor="confirmNewPassword">Confirm New Password</label>
+            <p className="error">{errors.confirmNewPassword?.message}</p>
           </InputGroup>
-          <BtnBrand>Submit</BtnBrand>
+          <BtnBrand type="submit">Submit</BtnBrand>
         </SingleForm>
       </Container>
     </AuthSection>
   );
-};
+});
 
 export default UpdatePassword;

@@ -5,7 +5,20 @@ export const RoomsPage = styled.section`
     padding: 2rem 0;
   }
 `;
-
+export const EmptyRoom = styled.div`
+  text-align: center;
+  h1 {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: gray;
+    opacity: 0.5;
+  }
+  button {
+    margin: auto !important;
+  }
+`;
 export const AllRooms = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);

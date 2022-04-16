@@ -18,6 +18,7 @@ export const BtnBrand = styled.button`
   background: ${(props) => props.theme.brand};
   color: white;
   border-radius: 7px;
+  margin-top: 1rem;
   cursor: pointer;
   svg {
     font-size: 1rem;
@@ -73,6 +74,14 @@ export const InputGroup = styled.div`
       transform-origin: top left;
       transform: translateY(-1.2rem) scale(0.8);
     }
+  }
+  p {
+    position: absolute;
+    top: 113%;
+    left: 0;
+    font-size: 0.93rem;
+    color: ${(props) => props.theme.redFade};
+    margin-bottom: 1rem;
   }
 `;
 export const ButtonGoogle = styled.div`

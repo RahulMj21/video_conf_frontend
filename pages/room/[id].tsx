@@ -13,7 +13,8 @@ import {
   FaVideo,
   FaVolumeUp,
 } from "react-icons/fa";
-import { BtnBrand, Container, InputGroup } from "../../styles/common.style";
+import AuthProtectedRoute from "../../components/AuthProtectedRoute";
+import { BtnBrand, Container } from "../../styles/common.style";
 import {
   ActivityBar,
   ActivityIcon,
@@ -44,7 +45,7 @@ import {
   VideoStreams,
 } from "../../styles/singleRoom.style";
 
-const SingleRoom = () => {
+const SingleRoom = AuthProtectedRoute(() => {
   const router: NextRouter = useRouter();
 
   const [toggleChat, setToggleChat] = useState(false);
@@ -208,6 +209,6 @@ const SingleRoom = () => {
       </Container>
     </SingleRoomPage>
   );
-};
+});
 
 export default SingleRoom;

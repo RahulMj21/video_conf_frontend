@@ -1,6 +1,8 @@
-import Link from "next/link";
 import React, { FormEvent, useState } from "react";
 import { FaArrowRight, FaEnvelope, FaFileImage, FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import AuthProtectedRoute from "../components/AuthProtectedRoute";
+import { selectUser } from "../slices/user.slice";
 import { Container, SectionHeading } from "../styles/common.style";
 import {
   Left,
@@ -15,9 +17,11 @@ import {
   Overlay,
 } from "../styles/profile.style";
 
-const Updateprofile = () => {
-  const [userName, setUserName] = useState("Rahul M");
-  const [userEmail, setUserEmail] = useState("rahulmondar@gmail.com");
+const Updateprofile = AuthProtectedRoute(() => {
+  const user = useSelector(selectUser);
+
+  const [userName, setUserName] = useState(user?.name);
+  const [userEmail, setUserEmail] = useState(user?.email);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,6 +74,6 @@ const Updateprofile = () => {
       </Container>
     </Profile>
   );
-};
+});
 
 export default Updateprofile;

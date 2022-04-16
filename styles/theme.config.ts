@@ -10,6 +10,7 @@ export const lightTheme = {
   background: "#363537",
   blue: "#4D96FF",
   red: "#e62236",
+  redFade: "#f0303d",
 };
 export const darkTheme = {
   brand: "#00BFA6",
@@ -22,6 +23,7 @@ export const darkTheme = {
   background: "#999",
   blue: "#4D96FF",
   red: "#e62236",
+  redFade: "#f0303d",
 };
 type themeType = typeof lightTheme;
 
