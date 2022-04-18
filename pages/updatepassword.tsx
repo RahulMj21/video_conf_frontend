@@ -6,7 +6,7 @@ import { BtnBrand, Container, InputGroup } from "../styles/common.style";
 import { useForm } from "react-hook-form";
 import { UpdatePasswordInput, UpdatePasswordSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { updateUserPassword } from "../utils/axios";
 import { useRouter } from "next/router";
 

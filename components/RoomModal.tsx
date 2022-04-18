@@ -8,7 +8,7 @@ import {
   Overlay,
 } from "../styles/RoomModal.style";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RoomInput, RoomSchema } from "../schemas";
 import { createNewRoom } from "../utils/axios";

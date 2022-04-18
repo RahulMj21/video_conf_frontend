@@ -7,7 +7,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginInput, LoginSchema } from "../schemas";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { loginUser } from "../utils/axios";
 import { NextRouter, useRouter } from "next/router";
 

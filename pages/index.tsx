@@ -5,7 +5,7 @@ import { NextRouter, useRouter } from "next/router";
 import { useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { setUser, UserInterface } from "../slices/user.slice";
 import { Container } from "../styles/common.style";
 import {

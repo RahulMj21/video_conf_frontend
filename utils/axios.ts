@@ -34,8 +34,14 @@ export const fetchCurrentUser = (cookies: NextApiRequestCookies) =>
   });
 export const updateUserPassword = (input: UpdatePasswordInput) =>
   api.put("/updatepassword", input);
+export const updateUserProfile = (input: {
+  name: string | undefined;
+  email: string | undefined;
+  avatar: string | ArrayBuffer;
+}) => api.put("/updateprofile", input);
 
 // room
 export const fetchAllRooms = () => api.get("/rooms");
+export const fetchSingleRooms = (roomId: string) => api.get(`/room/${roomId}`);
 export const createNewRoom = (input: RoomInput) =>
   api.post("/createroom", input);

@@ -9,7 +9,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import AuthProtectedRoute from "../components/AuthProtectedRoute";
 import { clearUser, selectUser } from "../slices/user.slice";
 import { Container, SectionHeading } from "../styles/common.style";
@@ -66,7 +66,10 @@ const Me = AuthProtectedRoute(() => {
         </ProfileTop>
         <Main>
           <Left>
-            <ProfileImg src="/stream.jpg" alt="user" />
+            <ProfileImg
+              src={user?.avatar.secure_url || "/stream.jpg"}
+              alt="user"
+            />
           </Left>
           <Right>
             <UserDetails>

@@ -6,7 +6,7 @@ import GoogleButton from "../components/GoogleButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterInput, RegisterSchema } from "../schemas";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { registerUser } from "../utils/axios";
 import { NextRouter, useRouter } from "next/router";
 
