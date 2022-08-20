@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { device } from "./theme.config";
 
 export const SingleRoomPage = styled.section`
   .container {
@@ -10,14 +11,50 @@ export const SingleRoomPage = styled.section`
 `;
 
 export const VideoStreams = styled.div`
-  flex: 0.75;
+  width: 75%;
   display: flex;
   flex-direction: column;
+  @media ${device.laptop} {
+    width: 100% !important;
+  }
 `;
 export const Chat = styled.div`
-  flex: 0.25;
+  width: 25%;
   display: flex;
   flex-direction: column;
+  @media ${device.laptop} {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: ${(props) => props.theme.body};
+    border-left: 1px solid ${(props) => props.theme.border};
+    height: 100vh;
+    width: 25rem;
+    max-width: 90%;
+    padding: 2rem;
+    padding-top: 3rem;
+    z-index: 9999;
+    transition: all 0.7s ease;
+    transform: ${({ show }: { show: boolean }) =>
+      show ? "translateX(0)" : "translateX(100%)"};
+  }
+`;
+export const ChatToggler = styled.div`
+  position: absolute;
+  top: 8.3rem;
+  left: -4.65rem;
+  padding: 0.3rem 1rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.4px;
+  border-top-right-radius: 1.5rem;
+  border-top-left-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: ${(props) => props.theme.brand};
+  cursor: pointer;
+  transform: rotate(-90deg) translateY(8px);
 `;
 export const RoomDetails = styled.div`
   display: flex;
@@ -31,6 +68,9 @@ export const Streams = styled.div`
   border-radius: 2rem;
   margin-bottom: 2rem;
   transition: all 0.5s ease;
+  @media ${device.mobileL} {
+    padding: 1rem;
+  }
 `;
 export const PopUp = keyframes`
 0%{transform:scale(1)}
@@ -121,10 +161,14 @@ export const InviteButton = styled.button`
 `;
 export const StreamsBody = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
   gap: 2rem;
   max-height: 38rem;
   overflow-y: scroll;
+  @media ${device.mobileL} {
+    grid-template-columns: 1fr;
+  }
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
     display: none;
@@ -139,7 +183,7 @@ export const Stream = styled.div`
   border-radius: 1rem;
   overflow: hidden;
   border: 3px solid ${(props) => props.theme.border};
-  img {
+  video {
     width: 100%;
     max-width: 100%;
   }
@@ -178,10 +222,22 @@ export const ControlBar = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  @media ${device.mobileL} {
+    gap: 0.5rem;
+  }
   .btn-brand {
     font-size: 1.2rem !important;
     margin: 0 1rem;
     background: ${(props) => props.theme.red};
+    white-space: nowrap;
+    @media ${device.mobileL} {
+      span {
+        display: none;
+      }
+      svg {
+        font-size: 1.5rem;
+      }
+    }
     svg {
       transition: all 0.5s ease;
     }
@@ -226,8 +282,9 @@ export const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  min-height: 15rem;
   height: 25rem;
+  max-height: 70vh;
+  max-height: 60vh;
   overflow-y: scroll;
   margin-bottom: 2rem;
 

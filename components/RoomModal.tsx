@@ -34,6 +34,7 @@ const RoomModal = ({
     const { data } = await createNewRoom(values);
     if (data.success) {
       toast.success(`room created`);
+      setShowCreateRoomModal(false);
       router.push(`/room/${data.roomId}`);
     }
     try {
@@ -58,6 +59,7 @@ const RoomModal = ({
               id="roomName"
               autoComplete="off"
               type="text"
+              placeholder="roomname"
               required
               {...register("roomName")}
             />

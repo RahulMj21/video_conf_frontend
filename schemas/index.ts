@@ -52,8 +52,23 @@ export const UpdatePasswordSchema = object({
   message: "new password and confirm new password mismatched",
   path: ["confirmNewPassword"],
 });
+export const ResetPasswordSchema = object({
+  newPassword: string({
+    required_error: "please provide new password",
+  })
+    .nonempty("please provide new password")
+    .min(8, "new password should be atleast 8 characters long")
+    .max(20, "new password should not be longer than 20 characters"),
+  confirmNewPassword: string({
+    required_error: "please provide confirm new password",
+  }).nonempty("please provide confirm new password"),
+}).refine((data) => data.newPassword === data.confirmNewPassword, {
+  message: "new password and confirm new password mismatched",
+  path: ["confirmNewPassword"],
+});
 
 export type RegisterInput = TypeOf<typeof RegisterSchema>;
 export type LoginInput = TypeOf<typeof LoginSchema>;
 export type RoomInput = TypeOf<typeof RoomSchema>;
 export type UpdatePasswordInput = TypeOf<typeof UpdatePasswordSchema>;
+export type ResetPasswordInput = TypeOf<typeof ResetPasswordSchema>;

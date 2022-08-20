@@ -6,6 +6,7 @@ export const AuthSection = styled.section`
   .container {
     margin: 4rem auto;
     width: 28.5rem;
+    max-width: 95%;
     min-height: calc(100vh - 13.8rem);
     padding: 2rem 0;
     border: 1px solid ${({ theme }) => theme.border};
@@ -64,10 +65,10 @@ export const FormHeading = styled.h2`
   }
 `;
 export const Forms = styled.div`
-  width: 200%;
   display: flex;
+  width: 200%;
   & > form {
-    flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding: 0 1rem;

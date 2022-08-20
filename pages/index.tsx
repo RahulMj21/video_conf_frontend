@@ -26,12 +26,10 @@ const Home: NextPage<PageProps> = (props: PageProps) => {
   const router: NextRouter = useRouter();
   const dispatch = useDispatch();
   const { user } = props;
-  console.log("props", props);
 
   useEffect(() => {
     if (user) {
       dispatch(setUser(user));
-      toast.success(`welcome ${user.name}`);
       router.push("/rooms");
     }
   }, []);

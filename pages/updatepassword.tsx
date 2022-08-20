@@ -49,6 +49,7 @@ const UpdatePassword = AuthProtectedRoute(() => {
             <input
               id="password"
               autoComplete="new-password"
+              placeholder="password"
               type="password"
               required
               {...register("password")}
@@ -61,6 +62,7 @@ const UpdatePassword = AuthProtectedRoute(() => {
             <input
               id="newPassword"
               autoComplete="new-password"
+              placeholder="new password"
               type="password"
               required
               {...register("newPassword")}
@@ -74,6 +76,7 @@ const UpdatePassword = AuthProtectedRoute(() => {
               id="confirmNewPassword"
               autoComplete="new-password"
               type="password"
+              placeholder="confirm new password"
               required
               {...register("confirmNewPassword")}
             />

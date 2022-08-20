@@ -49,6 +49,7 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
           autoComplete="off"
           type="text"
           id="name"
+          placeholder="name"
           required
           {...register("name")}
         />
@@ -60,6 +61,7 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
         <input
           autoComplete="off"
           type="email"
+          placeholder="email"
           required
           id="email"
           {...register("email")}
@@ -72,6 +74,7 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
         <input
           autoComplete="new-password"
           type="password"
+          placeholder="password"
           required
           id="password"
           {...register("password")}
@@ -84,6 +87,7 @@ const RegisterForm = ({ toggleForm }: { toggleForm: Boolean }) => {
         <input
           autoComplete="new-password"
           type="password"
+          placeholder="confirm password"
           required
           id="confirmPassword"
           {...register("confirmPassword")}

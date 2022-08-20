@@ -24,7 +24,7 @@ const GuestRoute =
             router.push("/rooms");
           }
         } catch (error: any) {
-          router.push("/auth");
+          return;
         }
       })();
     }, []);

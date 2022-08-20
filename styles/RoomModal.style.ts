@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "./theme.config";
 
 export const Modal = styled.main`
   position: fixed;
@@ -17,6 +18,9 @@ export const Modal = styled.main`
     border-radius: 7px;
     display: flex;
     flex-direction: column;
+    @media ${device.mobileL} {
+      width: 90%;
+    }
   }
 `;
 export const Overlay = styled.div`

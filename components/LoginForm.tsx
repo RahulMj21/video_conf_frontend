@@ -50,6 +50,7 @@ const LoginForm = ({ toggleForm }: { toggleForm: Boolean }) => {
           id="email"
           autoComplete="email"
           type="email"
+          placeholder="email"
           required
           {...register("email")}
         />
@@ -62,6 +63,7 @@ const LoginForm = ({ toggleForm }: { toggleForm: Boolean }) => {
           id="password"
           autoComplete="new-password"
           type="password"
+          placeholder="password"
           required
           {...register("password")}
         />

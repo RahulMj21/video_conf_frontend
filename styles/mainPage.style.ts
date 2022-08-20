@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "./theme.config";
 
 export const HomePage = styled.section`
   .container {
@@ -6,6 +7,13 @@ export const HomePage = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem 0;
+    @media ${device.laptop} {
+      flex-direction: column-reverse;
+      padding-bottom: 4rem;
+      gap: 1rem;
+    }
   }
 `;
 export const Left = styled.div``;

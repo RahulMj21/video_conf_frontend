@@ -3,6 +3,7 @@ import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import {
   LoginInput,
   RegisterInput,
+  ResetPasswordInput,
   RoomInput,
   UpdatePasswordInput,
 } from "../schemas";
@@ -32,6 +33,10 @@ export const fetchCurrentUser = (cookies: NextApiRequestCookies) =>
       "x-refresh": `${cookies.refreshToken ? cookies.refreshToken : null}`,
     },
   });
+export const forgotPassword = (input: { email: string }) =>
+  api.post("/forgotpassword", input);
+export const resetPassword = (input: ResetPasswordInput, token: string) =>
+  api.put(`/resetpassword/${token}`, input);
 export const updateUserPassword = (input: UpdatePasswordInput) =>
   api.put("/updatepassword", input);
 export const updateUserProfile = (input: {

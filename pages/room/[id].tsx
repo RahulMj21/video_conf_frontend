@@ -1,16 +1,8 @@
 import { NextRouter, useRouter } from "next/router";
-import React, {
-  FormEvent,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import {
   FaAngleLeft,
-  FaComment,
-  FaComments,
   FaEllipsisH,
   FaMicrophone,
   FaPhone,
@@ -20,33 +12,27 @@ import {
   FaVideo,
   FaVolumeUp,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import AuthProtectedRoute from "../../components/AuthProtectedRoute";
+import ChatComponent from "../../components/ChatComponent";
+import SingleStream from "../../components/SingleStream";
+import { useWebRTC } from "../../hooks/useWebRTC2";
+import { selectUser, UserInterface } from "../../slices/user.slice";
 import { BtnBrand, Container } from "../../styles/common.style";
 import {
   ActivityBar,
   ActivityIcon,
-  Chat,
-  ChatBody,
-  ChatHeader,
-  ChatInputGroup,
-  ChatOrUsers,
-  ChatSubmitBtn,
   ControlBar,
   GroupIcon,
   InviteButton,
-  Message,
-  MessageComponent,
-  MessageInfo,
   RoomDetails,
   RoomName,
-  SingleChat,
   SingleRoomPage,
   Stream,
   Streams,
   StreamsBody,
   StreamsHeader,
   StreamsHeaderLeft,
-  TypeMessage,
   UserName,
   UtilityButton,
   VideoStreams,
@@ -56,15 +42,13 @@ import { RoomInterface } from "../rooms";
 
 const SingleRoom = AuthProtectedRoute(() => {
   const router: NextRouter = useRouter();
-  const roomId = window.location.pathname.replace("/room/", "");
+  const roomId = router.query.id as string;
+  const user = useSelector(selectUser);
+  if (!user) return null;
+
+  const { clients, provideInstance, socket } = useWebRTC(roomId, user);
 
   const [room, setRoom] = useState<null | RoomInterface>(null);
-  const [toggleChat, setToggleChat] = useState(false);
-  const doMessageRef: MutableRefObject<null | HTMLInputElement> = useRef(null);
-
-  const handleNewChat = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   useEffect(() => {
     (async () => {
@@ -91,7 +75,12 @@ const SingleRoom = AuthProtectedRoute(() => {
         <Container className="container">
           <VideoStreams>
             <RoomDetails>
-              <UtilityButton onClick={() => router.push("/rooms")}>
+              <UtilityButton
+                onClick={() => {
+                  socket.current?.emit("leave");
+                  router.push("/rooms");
+                }}
+              >
                 <FaAngleLeft />
               </UtilityButton>
               <RoomName>{room.roomName}</RoomName>
@@ -111,30 +100,32 @@ const SingleRoom = AuthProtectedRoute(() => {
                 </InviteButton>
               </StreamsHeader>
               <StreamsBody>
-                <Stream>
-                  <img src="/stream.jpg" alt="stream" />
-                  <UserName>Rahul M</UserName>
-                  <ActivityBar>
-                    <ActivityIcon active={true}>
-                      <FaVideo />
-                    </ActivityIcon>
-                    <ActivityIcon active={false}>
-                      <FaMicrophone />
-                    </ActivityIcon>
-                  </ActivityBar>
-                </Stream>
-                <Stream>
-                  <img src="/stream.jpg" alt="stream" />
-                  <UserName>Rahul M</UserName>
-                  <ActivityBar>
-                    <ActivityIcon active={true}>
-                      <FaVideo />
-                    </ActivityIcon>
-                    <ActivityIcon active={true}>
-                      <FaMicrophone />
-                    </ActivityIcon>
-                  </ActivityBar>
-                </Stream>
+                {clients.map((client: UserInterface) => {
+                  return (
+                    // <SingleStream
+                    //   ref={(instance) => {
+                    //   return provideInstance(
+                    //   instance as HTMLVideoElement,
+                    //   client._id
+                    //  );
+                    // }}
+                    //   client={client}
+                    //   key={client._id}
+                    // />
+                    <video
+                      controls
+                      autoPlay
+                      height={400}
+                      width={400}
+                      ref={(instance) => {
+                        return provideInstance(
+                          instance as HTMLVideoElement,
+                          client._id
+                        );
+                      }}
+                    ></video>
+                  );
+                })}
               </StreamsBody>
             </Streams>
             <ControlBar>
@@ -145,7 +136,7 @@ const SingleRoom = AuthProtectedRoute(() => {
                 <FaVideo />
               </UtilityButton>
               <BtnBrand className="btn-brand">
-                End Call
+                <span>End Call</span>
                 <FaPhone />
               </BtnBrand>
               <UtilityButton onClick={() => {}}>
@@ -156,87 +147,7 @@ const SingleRoom = AuthProtectedRoute(() => {
               </UtilityButton>
             </ControlBar>
           </VideoStreams>
-          <Chat>
-            <ChatHeader>
-              <ChatOrUsers
-                onClick={() => setToggleChat(false)}
-                active={toggleChat ? false : true}
-              >
-                <FaComments /> Chat
-              </ChatOrUsers>
-              <ChatOrUsers
-                onClick={() => setToggleChat(true)}
-                active={toggleChat ? true : false}
-              >
-                <FaUsers /> People
-              </ChatOrUsers>
-            </ChatHeader>
-            <ChatBody>
-              <SingleChat>
-                <MessageInfo>
-                  <p>Rahul M</p>
-                  <p>12:10 am</p>
-                </MessageInfo>
-                <MessageComponent>
-                  <img src="/stream.jpg" alt="participant" />
-                  <Message>This is a message dsfdssssssssss</Message>
-                </MessageComponent>
-              </SingleChat>
-              <SingleChat>
-                <MessageInfo>
-                  <p>Rahul M</p>
-                  <p>12:10 am</p>
-                </MessageInfo>
-                <MessageComponent>
-                  <img src="/stream.jpg" alt="participant" />
-                  <Message>This is a message dsfdssssssssss</Message>
-                </MessageComponent>
-              </SingleChat>
-              <SingleChat>
-                <MessageInfo>
-                  <p>Rahul M</p>
-                  <p>12:10 am</p>
-                </MessageInfo>
-                <MessageComponent>
-                  <img src="/stream.jpg" alt="participant" />
-                  <Message>This is a message dsfdssssssssss</Message>
-                </MessageComponent>
-              </SingleChat>
-              <SingleChat>
-                <MessageInfo>
-                  <p>Rahul M</p>
-                  <p>12:10 am</p>
-                </MessageInfo>
-                <MessageComponent>
-                  <img src="/stream.jpg" alt="participant" />
-                  <Message>This is a message dsfdssssssssss</Message>
-                </MessageComponent>
-              </SingleChat>
-              <SingleChat>
-                <MessageInfo>
-                  <p>Rahul M</p>
-                  <p>12:10 am</p>
-                </MessageInfo>
-                <MessageComponent>
-                  <img src="/stream.jpg" alt="participant" />
-                  <Message>This is a message dsfdssssssssss</Message>
-                </MessageComponent>
-              </SingleChat>
-            </ChatBody>
-            <TypeMessage onSubmit={(e) => handleNewChat(e)} autoComplete="off">
-              <ChatInputGroup onClick={() => doMessageRef.current?.select()}>
-                <FaComment />
-                <input
-                  ref={doMessageRef}
-                  placeholder="Type a message.."
-                  autoComplete="off"
-                  type="text"
-                  required
-                />
-              </ChatInputGroup>
-              <ChatSubmitBtn type="submit">send</ChatSubmitBtn>
-            </TypeMessage>
-          </Chat>
+          <ChatComponent />
         </Container>
       </SingleRoomPage>
     )

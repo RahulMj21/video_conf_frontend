@@ -36,10 +36,8 @@ export const BtnBrand = styled.button`
 export const InputGroup = styled.div`
   position: relative;
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   margin-bottom: 2.5rem;
+  border-bottom: 1px solid gray;
   svg {
     position: absolute;
     top: 50%;
@@ -53,6 +51,8 @@ export const InputGroup = styled.div`
   &:valid + label {
     position: absolute;
     display: inline-block;
+    top: 50%;
+    transform: translateY(-50%);
     color: gray;
     left: 2.5rem;
     font-size: 1.1rem;
@@ -60,19 +60,21 @@ export const InputGroup = styled.div`
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   input {
-    flex: 1;
+    width: 100%;
     padding: 0.5rem 1rem;
     padding-left: 2.5rem;
     font-size: 1.2rem;
     background: transparent;
     color: ${(props) => props.theme.text};
     border: none;
-    border-bottom: 1px solid gray;
     outline: none;
+    &::placeholder {
+      opacity: 0;
+    }
     &:focus + label,
-    &:valid + label {
+    &:not(:placeholder-shown) + label {
       transform-origin: top left;
-      transform: translateY(-1.2rem) scale(0.8);
+      transform: translateY(-1.9rem) scale(0.8);
     }
   }
   p {
@@ -89,7 +91,7 @@ export const ButtonGoogle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 0;
   font-size: 1.3rem;
   gap: 0.7rem;
   letter-spacing: 0.5px;
@@ -106,8 +108,7 @@ export const SectionHeading = styled.h2`
   font-size: 1.7rem;
   color: ${(props) => props.theme.text};
   display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
+  align-items: center;
   gap: 0.7rem;
   padding-bottom: 1rem;
   margin-bottom: 2.5rem;
@@ -134,4 +135,14 @@ export const SectionHeading = styled.h2`
       width: 110%;
     }
   }
+`;
+export const NavOverlay = styled.div`
+  position: fixed;
+  min-height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  z-index: 50;
 `;

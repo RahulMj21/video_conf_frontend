@@ -61,12 +61,14 @@ const Me = AuthProtectedRoute(() => {
           </SectionHeading>
           <InviteButton onClick={handleLogout}>
             <FaPowerOff />
-            Log Out
+            <span>Log Out</span>
           </InviteButton>
         </ProfileTop>
         <Main>
           <Left>
             <ProfileImg
+              height="500"
+              width="500"
               src={user?.avatar.secure_url || "/stream.jpg"}
               alt="user"
             />
@@ -92,9 +94,11 @@ const Me = AuthProtectedRoute(() => {
               <Link href="/updateprofile">
                 <a>Update Profile</a>
               </Link>
-              <Link href="/updatepassword">
-                <a>Update Password</a>
-              </Link>
+              {!user?.isLoggedInWithGoogle && (
+                <Link href="/updatepassword">
+                  <a>Update Password</a>
+                </Link>
+              )}
             </ActionButtons>
           </Right>
         </Main>

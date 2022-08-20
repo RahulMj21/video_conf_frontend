@@ -20,8 +20,9 @@ export const EmptyRoom = styled.div`
   }
 `;
 export const AllRooms = styled.div`
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
   gap: 2rem;
 `;
 export const Room = styled.div`

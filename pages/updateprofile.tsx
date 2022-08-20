@@ -50,6 +50,8 @@ const Updateprofile = AuthProtectedRoute(() => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      if (!userName) return toast.error("name cannot be empty");
+      if (!userEmail) return toast.error("email cannot be empty");
       if (!uploadableImage) {
         if (userName === user?.name && userEmail === user?.email) {
           return toast.error("nothing to update");
@@ -87,6 +89,8 @@ const Updateprofile = AuthProtectedRoute(() => {
         <Main>
           <Left>
             <ProfileImg
+              height="500"
+              width="500"
               src={userAvatar ? userAvatar : "/stream.jpg"}
               alt="user"
             />

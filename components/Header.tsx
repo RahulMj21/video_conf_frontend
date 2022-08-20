@@ -1,6 +1,12 @@
-import React, { MutableRefObject, useRef, useState } from "react";
-import { Container } from "../styles/common.style";
+import { NextRouter, useRouter } from "next/router";
+import { MutableRefObject, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { FaSearch, FaThLarge, FaUser, FaVideo } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { selectUser } from "../slices/user.slice";
+import { Container, NavOverlay } from "../styles/common.style";
 import {
+  Hamburger,
   HeaderComponent,
   Logo,
   Nav,
@@ -8,37 +14,33 @@ import {
   SearchBar,
   ThemeToggler,
 } from "../styles/header.style";
-import { FaUser, FaVideo, FaSearch, FaThLarge } from "react-icons/fa";
-import { NextRouter, useRouter } from "next/router";
 import RoomModal from "./RoomModal";
-import { selectUser } from "../slices/user.slice";
-import { useSelector } from "react-redux";
-import toast from "react-hot-toast";
 
 const Header = ({
-  isThemeToggled,
-  setIsThemeToggled,
+  currentTheme,
+  setCurrentTheme,
 }: {
-  isThemeToggled: Boolean;
-  setIsThemeToggled: Function;
+  currentTheme: string;
+  setCurrentTheme: Function;
 }) => {
   const router: NextRouter = useRouter();
 
   const searchRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
   const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
+  const [menuToggled, setMenuToggled] = useState(false);
 
   const user = useSelector(selectUser);
 
   const handleCreateRoomModal = () => {
+    setMenuToggled(false);
     if (!user) return toast.error("login before continue");
     setShowCreateRoomModal(true);
   };
 
-  const handleToggleTheme = (state: Boolean) => {
-    state
-      ? localStorage.setItem("theme", JSON.stringify("dark"))
-      : localStorage.setItem("theme", JSON.stringify("light"));
-    setIsThemeToggled(state);
+  const toggleTheme = () => {
+    const themeToBeSet = currentTheme === "light" ? "dark" : "light";
+    localStorage.setItem("theme", themeToBeSet);
+    setCurrentTheme(themeToBeSet);
   };
 
   return (
@@ -49,28 +51,54 @@ const Header = ({
 
       <HeaderComponent>
         <Container className="container">
-          <Logo onClick={() => router.push("/")}>V</Logo>
+          <Logo
+            onClick={() => {
+              setMenuToggled(false);
+              router.push("/");
+            }}
+          >
+            V
+          </Logo>
           <SearchBar onClick={() => searchRef.current?.select()}>
             <FaSearch />
             <input ref={searchRef} type="text" placeholder="search rooms" />
           </SearchBar>
-          <Nav>
-            <NavItem onClick={() => router.push("/rooms")}>
+          {menuToggled && <NavOverlay onClick={() => setMenuToggled(false)} />}
+          <Nav menuToggled={menuToggled}>
+            <NavItem
+              onClick={() => {
+                setMenuToggled(false);
+                router.push("/rooms");
+              }}
+            >
               <FaThLarge /> Rooms
             </NavItem>
             <NavItem onClick={handleCreateRoomModal}>
               <FaVideo /> Create
             </NavItem>
-            <NavItem onClick={() => router.push("/me")}>
+            <NavItem
+              onClick={() => {
+                setMenuToggled(false);
+                router.push("/me");
+              }}
+            >
               <FaUser /> Profile
             </NavItem>
             <NavItem>
               <ThemeToggler
-                isThemeToggled={isThemeToggled}
-                onClick={() => handleToggleTheme(!isThemeToggled)}
+                isThemeToggled={currentTheme === "dark"}
+                onClick={toggleTheme}
               />
             </NavItem>
           </Nav>
+          <Hamburger
+            menuToggled={menuToggled}
+            onClick={() => setMenuToggled(!menuToggled)}
+          >
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+          </Hamburger>
         </Container>
       </HeaderComponent>
     </>

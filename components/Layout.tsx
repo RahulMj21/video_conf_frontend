@@ -4,24 +4,19 @@ import { GlobalStyles, lightTheme, darkTheme } from "../styles/theme.config";
 import Header from "./Header";
 
 const Layout = ({ children }) => {
-  const [isThemeToggled, setIsThemeToggled] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState("");
 
   useEffect(() => {
-    if (localStorage.getItem("theme")) {
-      const theme: string = JSON.parse(localStorage.getItem("theme") as string);
-      if (theme === "dark") return setIsThemeToggled(true);
-      setIsThemeToggled(false);
-    }
+    setCurrentTheme(
+      document.body.dataset.theme ? document.body.dataset.theme : "light"
+    );
   }, []);
 
   return (
     <>
-      <ThemeProvider theme={isThemeToggled ? darkTheme : lightTheme}>
+      <ThemeProvider theme={currentTheme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyles />
-        <Header
-          isThemeToggled={isThemeToggled}
-          setIsThemeToggled={setIsThemeToggled}
-        />
+        <Header currentTheme={currentTheme} setCurrentTheme={setCurrentTheme} />
         {children}
       </ThemeProvider>
     </>
